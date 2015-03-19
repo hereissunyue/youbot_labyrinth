@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package>
-  <name>youbot_grasp_msr</name>
+  <name>youbot_labyrinth</name>
   <version>0.0.0</version>
-  <description>The youbot_grasp_msr package</description>
+  <description>The youbot_labyrinth package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag --> 
   <!-- Example:  -->
