@@ -287,7 +287,7 @@ class YoubotArm:
 
         # Initialize at the candle position.
         self.publish_arm_joint_positions(armJointPosCandle)
-        rospy.sleep(3.0)
+        rospy.sleep(2.0)
 
         self.publish_arm_joint_positions(armJointPosHold)
         rospy.sleep(2.0)
