@@ -319,11 +319,14 @@ class YoubotArm:
 
 	# Go to the horizonal holding position
         self.publish_arm_joint_positions(armJointPosHold)
-        rospy.sleep(8.0)
+        rospy.sleep(10.0)
         
         # Open the gripper      
         # self.publish_gripper_width(gripperWidthOpen)
-        # rospy.sleep(1.0)
+        # rospy.sleep(3.0)
+
+        # Go to the horizonal holding position
+
 
 	# first move
         self.forward_routine()
@@ -331,21 +334,133 @@ class YoubotArm:
 
         # Second move
         self.right_routine()
-        rospy.sleep(4.0)
+        rospy.sleep(5.0)
 
-        # Third move
-        self.publish_arm_joint_positions(armJointPosHold)
- 	rospy.sleep(1.0) 
-
-	self.left_routine()
-        rospy.sleep(3.0)
-
-        # Fourth move
+        # Second move
         self.forward_routine()
         rospy.sleep(3.0)
 
+        # 3 move
+        self.left_routine()
+        rospy.sleep(3.0)
 
+        # 5 move
+        self.forward_routine()
+        rospy.sleep(3.0)
 
+        # 6 move
+        self.back_routine()
+        rospy.sleep(4.0)
+
+        # 7 move
+        self.left_routine()
+        rospy.sleep(3.0)
+
+        # 8 move
+        self.back_routine()
+        rospy.sleep(3.0)
+
+        # 9 move
+        self.right_routine()
+        rospy.sleep(3.0)
+
+        # 10 move
+        self.back_routine()
+        rospy.sleep(3.0)
+
+	# 11 move
+        self.publish_arm_joint_positions(armJointPosHold)
+        rospy.sleep(1.0)
+
+        self.right_routine()
+        rospy.sleep(3.0)
+
+        # 12 move
+        self.back_routine()
+        rospy.sleep(3.0)
+
+        # 13 move
+        self.right_routine()
+        rospy.sleep(3.0)
+
+        # 14 move
+        self.back_routine()
+        rospy.sleep(3.0)
+
+        # 15 move
+        self.left_routine()
+        rospy.sleep(3.0)
+
+        # 16 move
+        self.back_routine()
+        rospy.sleep(3.0)
+
+        # 17 move
+        self.left_routine()
+        rospy.sleep(3.0)
+
+        # 18 move
+        self.forward_routine()
+        rospy.sleep(4.0)
+
+        # 19 move
+        self.right_routine()
+        rospy.sleep(3.0)
+
+        # 21 move
+        self.forward_routine()
+        rospy.sleep(3.0)
+
+        # 22 move
+        self.left_routine()
+        rospy.sleep(5.0)
+
+        # 23 move
+        self.back_routine()
+        rospy.sleep(1.5)
+
+        # 16 move
+        self.left_routine()
+        rospy.sleep(1.5)
+
+        # 16 move
+        self.back_routine()
+        rospy.sleep(1.5)
+
+        # 16 move
+        self.left_routine()
+        rospy.sleep(1.5)
+
+        # 16 move
+        self.back_routine()
+        rospy.sleep(1.5)
+
+        # 16 move
+        self.right_routine()
+        rospy.sleep(3.0)
+
+        # 16 move
+        self.back_routine()
+        rospy.sleep(2.0)
+
+        # 16 move
+        self.left_routine()
+        rospy.sleep(4.0)
+
+        # 16 move
+        self.back_routine()
+        rospy.sleep(2.0)
+
+        # 16 move
+        self.left_routine()
+        rospy.sleep(2.0)
+
+        # 16 move
+        self.forward_routine()
+        rospy.sleep(3.0)
+
+        self.publish_arm_joint_positions(armJointPosHold)
+ 
 
 
     # A callback function to run on a timer that runs the velocity commands for a specified
