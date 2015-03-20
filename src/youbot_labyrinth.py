@@ -57,7 +57,7 @@ armJointPosLeft4 = np.array([2.9496, 1.1344, -2.5482, 3.3, 2.8434])
 armJointPosLeft5 = np.array([2.9496, 1.1344, -2.5482, 3.3, 2.8234])
 armJointPosLeft6 = np.array([2.9496, 1.1344, -2.5482, 3.3, 2.8034])
 armJointPosLeft7 = np.array([2.9496, 1.1344, -2.5482, 3.3, 2.7834])
-armJointPosleft8 = np.array([2.9496, 1.1344, -2.5482, 3.3, 2.7634])
+armJointPosLeft8 = np.array([2.9496, 1.1344, -2.5482, 3.3, 2.7634])
 armJointPosLeft9 = np.array([2.9496, 1.1344, -2.5482, 3.3, 2.7434])
 armJointPosLeft10 = np.array([2.9496, 1.1344, -2.5482, 3.3, 2.7234])
 
@@ -317,13 +317,9 @@ class YoubotArm:
         # Give the publishers time to get setup before trying to do any actual work.
         rospy.sleep(2)
 
-        # Initialize at the candle position.
-        self.publish_arm_joint_positions(armJointPosCandle)
-        rospy.sleep(3.0)
-
 	# Go to the horizonal holding position
         self.publish_arm_joint_positions(armJointPosHold)
-        rospy.sleep(2.0)
+        rospy.sleep(8.0)
         
         # Open the gripper      
         # self.publish_gripper_width(gripperWidthOpen)
@@ -333,6 +329,20 @@ class YoubotArm:
         self.forward_routine()
 	rospy.sleep(3.0)
 
+        # Second move
+        self.right_routine()
+        rospy.sleep(4.0)
+
+        # Third move
+        self.publish_arm_joint_positions(armJointPosHold)
+ 	rospy.sleep(1.0) 
+
+	self.left_routine()
+        rospy.sleep(3.0)
+
+        # Fourth move
+        self.forward_routine()
+        rospy.sleep(3.0)
 
 
 
