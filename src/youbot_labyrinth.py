@@ -36,24 +36,37 @@ armJointPosCandle = np.array([2.9496, 1.1344, -2.5482, 1.789, 2.9234])
 armJointPosHold = np.array([2.9496, 1.1344, -2.5482, 3.3, 2.9234])
 
 # command for turning right
-armJointPosRight1 = np.array([2.9496, 1.1344, -2.5482, 3.3, 2.9734])
-armJointPosRight2 = np.array([2.9496, 1.1344, -2.5482, 3.3, 3.0234])
-armJointPosRight3 = np.array([2.9496, 1.1344, -2.5482, 3.3, 3.0734])
-armJointPosRight4 = np.array([2.9496, 1.1344, -2.5482, 3.3, 3.1234])
+armJointPosRight1 = np.array([2.9496, 1.1344, -2.5482, 3.3, 2.9434])
+armJointPosRight2 = np.array([2.9496, 1.1344, -2.5482, 3.3, 2.9634])
+armJointPosRight3 = np.array([2.9496, 1.1344, -2.5482, 3.3, 2.9834])
+armJointPosRight4 = np.array([2.9496, 1.1344, -2.5482, 3.3, 3.0034])
+armJointPosRight5 = np.array([2.9496, 1.1344, -2.5482, 3.3, 3.0234])
+armJointPosRight6 = np.array([2.9496, 1.1344, -2.5482, 3.3, 3.0434])
+armJointPosRight7 = np.array([2.9496, 1.1344, -2.5482, 3.3, 3.0634])
+armJointPosRight8 = np.array([2.9496, 1.1344, -2.5482, 3.3, 3.0834])
+armJointPosRight9 = np.array([2.9496, 1.1344, -2.5482, 3.3, 3.1034])
+armJointPosRight10 = np.array([2.9496, 1.1344, -2.5482, 3.3, 3.1234])
+
+
 
 # command for turning left
-armJointPosLeft1 = np.array([2.9496, 1.1344, -2.5482, 3.3, 2.8734])
-armJointPosLeft2 = np.array([2.9496, 1.1344, -2.5482, 3.3, 2.8234])
-armJointPosLeft3 = np.array([2.9496, 1.1344, -2.5482, 3.3, 2.7734])
-armJointPosLeft4 = np.array([2.9496, 1.1344, -2.5482, 3.3, 2.7234])
+armJointPosLeft1 = np.array([2.9496, 1.1344, -2.5482, 3.3, 2.9034])
+armJointPosLeft2 = np.array([2.9496, 1.1344, -2.5482, 3.3, 2.8834])
+armJointPosLeft3 = np.array([2.9496, 1.1344, -2.5482, 3.3, 2.8634])
+armJointPosLeft4 = np.array([2.9496, 1.1344, -2.5482, 3.3, 2.8434])
+armJointPosLeft5 = np.array([2.9496, 1.1344, -2.5482, 3.3, 2.8234])
+armJointPosLeft6 = np.array([2.9496, 1.1344, -2.5482, 3.3, 2.8034])
+armJointPosLeft7 = np.array([2.9496, 1.1344, -2.5482, 3.3, 2.7834])
+armJointPosleft8 = np.array([2.9496, 1.1344, -2.5482, 3.3, 2.7634])
+armJointPosLeft9 = np.array([2.9496, 1.1344, -2.5482, 3.3, 2.7434])
+armJointPosLeft10 = np.array([2.9496, 1.1344, -2.5482, 3.3, 2.7234])
 
 
 # command for turning forward
-armJointPosForward1 = np.array([2.9496, 1.1344, -2.5482, 3.35, 2.9234])
-armJointPosForward2 = np.array([2.9496, 1.1344, -2.5482, 3.4, 2.9234])
-armJointPosForward3 = np.array([2.9496, 1.1344, -2.5482, 3.35, 2.9234])
-armJointPosForward4 = np.array([2.9496, 1.1344, -2.5482, 3.5, 2.9234])
+armJointPosForward = np.array([2.9496, 1.1344, -2.5482, 3.429, 2.9234])
 
+# command for turning back
+armJointPosBack = np.array([2.9496, 1.1344, -2.5482, 3.139, 2.9234])
 
 
 
@@ -61,8 +74,8 @@ gripperWidthAtGrasp = 0.00411
 gripperWidthOpen = 0.0115
 
 # Position and orientation above the grasping target
-quat_above_grasp = np.array([0.601, 0.591, -0.372, 0.388])
-pos_above_grasp = np.array([0.181, 0.778, 0.108])
+# quat_above_grasp = np.array([0.601, 0.591, -0.372, 0.388])
+# pos_above_grasp = np.array([0.181, 0.778, 0.108])
 
 
 # Multiplies multiple matrices together.
@@ -316,39 +329,14 @@ class YoubotArm:
         # self.publish_gripper_width(gripperWidthOpen)
         # rospy.sleep(1.0)
 
-        # Initialize go to right part.
-        self.publish_arm_joint_positions(armJointPosRight1)
-        rospy.sleep(1.0)
-        self.publish_arm_joint_positions(armJointPosRight2)
-        rospy.sleep(1.0)
-        self.publish_arm_joint_positions(armJointPosRight3)
-        rospy.sleep(1.0)
-        self.publish_arm_joint_positions(armJointPosRight4)
-        rospy.sleep(1.0)
-
-        # Go to the horizonal holding position
-        self.publish_arm_joint_positions(armJointPosHold)
-        rospy.sleep(5.0)
-
-        # Initialize go to left part.
-        self.publish_arm_joint_positions(armJointPosLeft1)
-        rospy.sleep(1.0)
-        self.publish_arm_joint_positions(armJointPosLeft2)
-        rospy.sleep(1.0)
-        self.publish_arm_joint_positions(armJointPosLeft3)
-        rospy.sleep(1.0)
-        self.publish_arm_joint_positions(armJointPosLeft4)
-        rospy.sleep(1.0)
-
-        # Go to the horizonal holding position
-        self.publish_arm_joint_positions(armJointPosHold)
-        rospy.sleep(5.0)
+	# first move
+        self.forward_routine()
+	rospy.sleep(3.0)
 
 
 
 
-        # Go through the routine of picking up the block.
-        # self.grasp_routine()
+
 
     # A callback function to run on a timer that runs the velocity commands for a specified
     # amount of time.
@@ -459,134 +447,70 @@ class YoubotArm:
     # Goes through a routine of predefined poses that starts at a neutral position, moves down
     # to grasp the grasp an object, and moves back to a neutral position.
 
-    def grasp_routine(self):
+    def forward_routine(self):
+        # Initialize go to forward part.
+        self.publish_arm_joint_positions(armJointPosForward)
 
-        # --- Get into position for grasp --- #
+    def back_routine(self):
+        # Initialize go to forward part.
+        self.publish_arm_joint_positions(armJointPosBack)
 
-        pose_above_grasp = quat_pos_to_se3(quat_above_grasp, pos_above_grasp)
+    def left_routine(self):
+        # Initialize go to left part.
+        self.publish_arm_joint_positions(armJointPosLeft1)
+        self.publish_arm_joint_positions(armJointPosLeft2)
+        self.publish_arm_joint_positions(armJointPosLeft3)
+        self.publish_arm_joint_positions(armJointPosLeft4)
+        self.publish_arm_joint_positions(armJointPosLeft5)
+        self.publish_arm_joint_positions(armJointPosLeft6)
+        self.publish_arm_joint_positions(armJointPosLeft7)
+        self.publish_arm_joint_positions(armJointPosLeft8)
+        self.publish_arm_joint_positions(armJointPosLeft9)
+        self.publish_arm_joint_positions(armJointPosLeft10)
 
-        # Try to solve IK for the pickup point.
-        q_ik = self.kin_with_virtual.inverse(pose_above_grasp, jointGuessForGrasp)
-
-        if q_ik != None:
-            q_ik = np.array(q_ik)
-
-            # Publish the IK results.
-            arm_above_grasp = [q_ik[2], q_ik[3], q_ik[4], q_ik[5], q_ik[6]]
-            arm_above_grasp = self.limit_arm_joints(arm_above_grasp)
-            self.publish_arm_joint_positions(arm_above_grasp)
-
-            # Sleep for a while to give the arm time to get there.
-            rospy.sleep(2.0)
-
-
-            # --- Open grippers --- #
-                        
-            self.publish_gripper_width(gripperWidthOpen)
-            rospy.sleep(2.0)
-
-
-            # --- Move down to grasp --- #
-
-            # Solve IK for the grasp point:
-
-            pos_at_grasp = pos_above_grasp.copy()
-            pos_at_grasp[0:2] -= q_ik[0:2]
-            pos_at_grasp[2] -= 0.1 # move down 10 cm
-
-            pose_grasp = quat_pos_to_se3(quat_above_grasp, pos_at_grasp)
-            q_grasp = dls_ik(self.kin_grasp, pose_grasp, q_ik[2:])
-
-            q_grasp = self.limit_arm_joints(q_grasp)
-            self.publish_arm_joint_positions(q_grasp)
-
-            rospy.sleep(2.0)
+    def left_bakc_routine(self):
+        # Go back to hold position from left.
+        self.publish_arm_joint_positions(armJointPosLeft9)
+        self.publish_arm_joint_positions(armJointPosLeft8)
+        self.publish_arm_joint_positions(armJointPosLeft7)
+        self.publish_arm_joint_positions(armJointPosLeft6)
+        self.publish_arm_joint_positions(armJointPosLeft5)
+        self.publish_arm_joint_positions(armJointPosLeft4)
+        self.publish_arm_joint_positions(armJointPosLeft3)
+        self.publish_arm_joint_positions(armJointPosLeft2)
+        self.publish_arm_joint_positions(armJointPosLeft1)
+        self.publish_arm_joint_positions(armJointPosHold)
 
 
-            # --- Close the grippers --- #
-                        
-            self.publish_gripper_width(gripperWidthAtGrasp)
-            rospy.sleep(1.5)
-                        
+    def right_routine(self):
+        # Initialize go to left part.
+        self.publish_arm_joint_positions(armJointPosRight1)
+        self.publish_arm_joint_positions(armJointPosRight2)
+        self.publish_arm_joint_positions(armJointPosRight3)
+        self.publish_arm_joint_positions(armJointPosRight4)
+        self.publish_arm_joint_positions(armJointPosRight5)
+        self.publish_arm_joint_positions(armJointPosRight6)
+        self.publish_arm_joint_positions(armJointPosRight7)
+        self.publish_arm_joint_positions(armJointPosRight8)
+        self.publish_arm_joint_positions(armJointPosRight9)
+        self.publish_arm_joint_positions(armJointPosRight10)
 
-            # --- Go to the carry position --- #
-
-            self.publish_arm_joint_positions(armJointPosCandle)
-            rospy.sleep(2.0)
-
-
-            # --- Go to dropoff position --- #
-
-            # Just use the position above grasp 
-            
-            self.publish_arm_joint_positions(arm_above_grasp)
-
-            # Sleep for a while to give the arm time to get there.
-            rospy.sleep(2.0)
-
-
-            # --- Open grippers --- #
-                        
-            self.publish_gripper_width(gripperWidthOpen)
-            rospy.sleep(2.0)
-            
-
-            # --- Go to the carry position --- #
-
-            self.publish_arm_joint_positions(jointCamera)
-            rospy.sleep(2.0)
+    def right_back_routine(self):
+        # Go back from right to the hold position
+        self.publish_arm_joint_positions(armJointPosRight9)
+        self.publish_arm_joint_positions(armJointPosRight8)
+        self.publish_arm_joint_positions(armJointPosRight7)
+        self.publish_arm_joint_positions(armJointPosRight6)
+        self.publish_arm_joint_positions(armJointPosRight5)
+        self.publish_arm_joint_positions(armJointPosRight4)
+        self.publish_arm_joint_positions(armJointPosRight3)
+        self.publish_arm_joint_positions(armJointPosRight2)
+        self.publish_arm_joint_positions(armJointPosRight1)
+        self.publish_arm_joint_positions(armJointPosHold)
 
 
-            # --- Code for moving the base with virtual joints --- #
-            
-            # Get the position to move the virtual joints to.
-
-            #self.commanded_virtual_x_pos = q_ik[0]
-            #self.commanded_virtual_y_pos = q_ik[1]
-
-            # Establish the velocities in the proper directions.
-
-            #if self.commanded_virtual_x_pos > 0.0:
-            #    self.commanded_virtual_x_vel = self.max_virtual_x_vel
-            #    self.moving_to_new_x_pos = True
-            #    self.virtual_x_running_time_sec = 0.0
-            #elif self.commanded_virtual_x_pos < 0.0:
-            #    self.commanded_virtual_x_vel = self.max_virtual_x_vel
-            #    self.moving_to_new_x_pos = True
-            #    self.virtual_x_running_time_sec = 0.0
-
-            #if self.commanded_virtual_y_pos > 0.0:
-            #    self.commanded_virtual_y_vel = self.max_virtual_y_vel
-            #    self.moving_to_new_y_pos = True
-            #    self.virtual_y_running_time_sec = 0.0
-            #elif self.commanded_virtual_y_pos < 0.0:
-            #    self.commanded_virtual_y_vel = self.max_virtual_y_vel
-            #    self.moving_to_new_y_pos = True
-            #    self.virtual_y_running_time_sec = 0.0
-
-            # Set up the amount of time to run the commands.
-
-            #self.virtual_x_cmd_time_sec = math.fabs(self.commanded_virtual_x_pos / self.max_virtual_x_vel)
-            #self.virtual_y_cmd_time_sec = math.fabs(self.commanded_virtual_y_pos / self.max_virtual_y_vel)
-
-            # --- Set the arm --- #
-
-            #arm_joints = [q_ik[2], q_ik[3], q_ik[4], q_ik[5], q_ik[6]]
-            #arm_joints = self.limit_arm_joints(arm_joints)
-            #self.publish_arm_joint_positions(arm_joints)
 
 
-        else:
-            rospy.logwarn("Invalid IK solution!")
-
-
-    # Clamps the parameter list of joints for joints 1-5  between their minimum and maximum values.
-    #
-    # Params:
-    # joints - the list of joint angles to limit.  Should contain joints 1-5.
-    #
-    # Returns:
-    # The list of limited joint values.
 
     def limit_arm_joints(self, joints):
         for i in range(5):
