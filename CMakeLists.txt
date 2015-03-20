@@ -83,7 +83,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-  LIBRARIES youbot_grasp_msr
+  LIBRARIES youbot_labyrinth
   CATKIN_DEPENDS roscpp rospy std_msgs tf youbot_description 
   DEPENDS system_lib
 
@@ -101,19 +101,19 @@ include_directories(
 )
 
 ## Declare a cpp library
-# add_library(youbot_grasp_msr
-#   src/${PROJECT_NAME}/youbot_grasp_msr.cpp
+# add_library(youbot_labyrinth
+#   src/${PROJECT_NAME}/youbot_labyrinth.cpp
 # )
 
 ## Declare a cpp executable
-# add_executable(youbot_grasp_msr_node src/youbot_grasp_msr_node.cpp)
+# add_executable(youbot_labyrinth_node src/youbot_labyrinth_node.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
-# add_dependencies(youbot_grasp_msr_node youbot_grasp_msr_generate_messages_cpp)
+# add_dependencies(youbot_labyrinth_node youbot_labyrinth_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(youbot_grasp_msr_node
+# target_link_libraries(youbot_labyrinth_node
 #   ${catkin_LIBRARIES}
 # )
 
@@ -132,7 +132,7 @@ include_directories(
 # )
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS youbot_grasp_msr youbot_grasp_msr_node
+# install(TARGETS youbot_labyrinth youbot_labyrinth
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -157,7 +157,7 @@ include_directories(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_youbot_grasp_msr.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_youbot_labyrinth.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()

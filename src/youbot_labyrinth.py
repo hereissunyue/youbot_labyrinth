@@ -534,7 +534,7 @@ class YoubotArm:
 
 def main():
 
-    rospy.init_node('youbot_arm_control')
+    rospy.init_node('youbot_labyrinth')
 
     try:
         demo = YoubotArm()
