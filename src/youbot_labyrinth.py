@@ -33,13 +33,32 @@ jointGuessForGrasp=[0.0, 0.0, 1.52, 1.84, -1.26, 2.4, 3.10]
 
 armJointPosCandle = np.array([2.9496, 1.1344, -2.5482, 1.789, 2.9234])
 
-armJointPosHold = np.array([2.9496, 2.1344, -2.5482, 1.789, 2.9234])
+armJointPosHold = np.array([2.9496, 1.1344, -2.5482, 3.3, 2.9234])
+
+# command for turning right
+armJointPosRight1 = np.array([2.9496, 1.1344, -2.5482, 3.3, 2.9734])
+armJointPosRight2 = np.array([2.9496, 1.1344, -2.5482, 3.3, 3.0234])
+armJointPosRight3 = np.array([2.9496, 1.1344, -2.5482, 3.3, 3.0734])
+armJointPosRight4 = np.array([2.9496, 1.1344, -2.5482, 3.3, 3.1234])
+
+# command for turning left
+armJointPosLeft1 = np.array([2.9496, 1.1344, -2.5482, 3.3, 2.8734])
+armJointPosLeft2 = np.array([2.9496, 1.1344, -2.5482, 3.3, 2.8234])
+armJointPosLeft3 = np.array([2.9496, 1.1344, -2.5482, 3.3, 2.7734])
+armJointPosLeft4 = np.array([2.9496, 1.1344, -2.5482, 3.3, 2.7234])
+
+
+# command for turning forward
+armJointPosForward1 = np.array([2.9496, 1.1344, -2.5482, 3.35, 2.9234])
+armJointPosForward2 = np.array([2.9496, 1.1344, -2.5482, 3.4, 2.9234])
+armJointPosForward3 = np.array([2.9496, 1.1344, -2.5482, 3.35, 2.9234])
+armJointPosForward4 = np.array([2.9496, 1.1344, -2.5482, 3.5, 2.9234])
 
 
 
 
 gripperWidthAtGrasp = 0.00411
-gripperWidthOpen = 0.0099
+gripperWidthOpen = 0.0115
 
 # Position and orientation above the grasping target
 quat_above_grasp = np.array([0.601, 0.591, -0.372, 0.388])
@@ -289,9 +308,43 @@ class YoubotArm:
         self.publish_arm_joint_positions(armJointPosCandle)
         rospy.sleep(3.0)
 
+	# Go to the horizonal holding position
         self.publish_arm_joint_positions(armJointPosHold)
         rospy.sleep(2.0)
         
+        # Open the gripper      
+        # self.publish_gripper_width(gripperWidthOpen)
+        # rospy.sleep(1.0)
+
+        # Initialize go to right part.
+        self.publish_arm_joint_positions(armJointPosRight1)
+        rospy.sleep(1.0)
+        self.publish_arm_joint_positions(armJointPosRight2)
+        rospy.sleep(1.0)
+        self.publish_arm_joint_positions(armJointPosRight3)
+        rospy.sleep(1.0)
+        self.publish_arm_joint_positions(armJointPosRight4)
+        rospy.sleep(1.0)
+
+        # Go to the horizonal holding position
+        self.publish_arm_joint_positions(armJointPosHold)
+        rospy.sleep(5.0)
+
+        # Initialize go to left part.
+        self.publish_arm_joint_positions(armJointPosLeft1)
+        rospy.sleep(1.0)
+        self.publish_arm_joint_positions(armJointPosLeft2)
+        rospy.sleep(1.0)
+        self.publish_arm_joint_positions(armJointPosLeft3)
+        rospy.sleep(1.0)
+        self.publish_arm_joint_positions(armJointPosLeft4)
+        rospy.sleep(1.0)
+
+        # Go to the horizonal holding position
+        self.publish_arm_joint_positions(armJointPosHold)
+        rospy.sleep(5.0)
+
+
 
 
         # Go through the routine of picking up the block.
