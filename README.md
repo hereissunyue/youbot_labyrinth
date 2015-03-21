@@ -30,6 +30,31 @@ Computer Vision Part
 In this project, computer vision technique is introduced for two main purposes. The first one is labyrinth recognition and path planning. The second part is real-time tracking. We will discuss about how we achieve the task in detail in the following.
 
 Labyrinth Recognition and Path Planning 
+
+<img src="https://raw.githubusercontent.com/hereissunyue/youbot_labyrinth/master/image/2.png">
+
+The figure above demonstrated a rough segmentation of start region, goal region and obstacle wall. Rough processed map will produce much less stability for tracking part. We have to refine our rough map mathematically.
+
+The basic idea is to divide the whole image into 31 X 31 grid regions. After resizing our map into appropriate size. We could calculate the mean value in certain region. With the average value, we could filter out noisy regions and assign value to the corresponging region with corrent pure unit value.
+
+A part of MATLAB code for segmenting wall out of map could be done in the following way
+
+```bash
+% calculating the region status
+for i = 1 : 31
+    for j = 1 : 31
+        sample = wall(10*(i-1)+1:10*i,10*(j-1)+1:10*j); % temp sample
+        check = mean(mean(sample)); % calculate the average value in that region
+        if check > 0.4
+            wall_region = [wall_region; 10*(j-1)+1,10*(i-1)+1,10,10]; %#ok<AGROW>
+        end
+    end
+end
+wall_region_num = size(wall_region,1);
+```
+
+We could also save the information in other format, like just with integer number range from 1 to 31. In such method, some future work might be easier. A decent result would be like the following:
+
 ---------------------------------
 
 Since the labyrinth is specially designed with black edge and white background, while the ball, start region and goal region are with R-G-B color respectively. We could easily doing color segmentation and basic image processing algorithm to extract our target and regions out.
