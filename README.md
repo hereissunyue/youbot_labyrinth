@@ -106,16 +106,19 @@ Design and prototype the labytinth model is a very time consuming task. The laby
 
 The original design and the real model is showed in the following:
 
-<img src="https://raw.githubusercontent.com/hereissunyue/youbot_labyrinth/master/image/3.png">
+<img src="https://raw.githubusercontent.com/hereissunyue/youbot_labyrinth/master/image/4.png">
 
 
 Controller Design
 ============
 
+Honestly speaking, when really testing the model and my code with youBot, I finally realized how much importance a good controller has.  With great help from Jarvis, I successfully designed a rough PID controller for a one degree of freedom joint to do position control of a ball on infinite plane. The progress of the controller just achieved the Mathematica simulation level.
 
+The following is a screenshot of a ball on a infinate length slope while the slope is doing sin(t) motion.
 
+<img src="https://raw.githubusercontent.com/hereissunyue/youbot_labyrinth/master/image/5.png">
 
-
+The motion plan of the youBot arm in the video clip is hard coded. I will keep working on this project during the spring break and focusing on robust controller design.
 
 
 
