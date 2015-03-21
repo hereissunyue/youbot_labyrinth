@@ -30,6 +30,7 @@ Computer Vision Part
 In this project, computer vision technique is introduced for two main purposes. The first one is labyrinth recognition and path planning. The second part is real-time tracking. We will discuss about how we achieve the task in detail in the following.
 
 Labyrinth Recognition and Path Planning 
+---------------------------------
 
 <img src="https://raw.githubusercontent.com/hereissunyue/youbot_labyrinth/master/image/2.png">
 
@@ -54,6 +55,9 @@ wall_region_num = size(wall_region,1);
 ```
 
 We could also save the information in other format, like just with integer number range from 1 to 31. In such method, some future work might be easier. A decent result would be like the following:
+
+<img src="https://github.com/hereissunyue/youbot_labyrinth/blob/master/image/2.GIF">
+
 
 ---------------------------------
 
