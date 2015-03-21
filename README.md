@@ -1,7 +1,9 @@
-youBot_labyrinth
+youbot_labyrinth
 ================
 
 Package for youBot Labyrinth Solver Project.  ME499 Winter. Northwestern University.
+
+
 
 Project Introduction
 ============
