@@ -122,7 +122,10 @@ The motion plan of the youBot arm in the video clip is hard coded. I will keep w
 
 
 
-The package dependancies include: 
+Information of the Package
+================
+
+The package dependancies: 
 ---------------------------------
 
 The following dependancies are clonable via github:
@@ -136,42 +139,25 @@ The package also relies on the following packages, installable from apt-get in H
 5) [youbot_driver_ros_interface](https://github.com/youbot/youbot_driver_ros_interface)
 
 
+Running the Package: 
+---------------------------------
 
-Running the Package
-================
+The youBot arm must be powered on first and the code will go the hold position, which is the horizontal pose of the youBot. The program will give user 35 seconds to attach the labyrinth to the youBot gripper. Then it will automatically start execute hard coded movement. 
 
-The youBot arm must be powered on, and the arm must be initialized. Then we simply need to launch the main launch file using
+In order to communicate with youBot. We have to ssh into the local computer on youBot.
 
 ```bash
-roslaunch youbot_grasp_msr grasp.launch
+roslaunch youbot_labyrinth labyrinth.launch
 ```
-The inverse and forward kinematics of the arm are calculated in order to drive the arm to a predefined position and grasp a square block. The arm then returns to a predefined pose and then drops the block back where it picked it up.
+
 
 Additional Information
 ----------------------
+This package's arm controll Python code is modified from [youbot_grasp_msr](https://github.com/mattmongeon/youbot_grasp_msr).
 
-This package is part of a larger project developed by a group of students in the [Northwestern MSR](http://robotics.northwestern.edu/) program. The completed project will be able to command the youBot to grasp an object that is identified by a laser pointer. It will navigate to the object using the [youbot_nav_msr](https://github.com/jihoonkimMSR/youbot_nav_msr) package and determine a precise grasp point using an [ASUS Xtion PRO LIVE](http:/www.asus.com/us/Multimedia/Xtion_PRO_LIVE) attached at the arm to provide visual feedback for grasping.  The object will then be carried by the youBot to a drop-off location.
-
-Note of caution
----------------
-
-The youBot arm is powerful, fast, and does not have any built-in collision detection. Be cautious in choosing desired gripper positions to avoid any damage to the youBot and/or users. 
-
-Resources
-=========
-
-Here are a few links that may be useful in working with the youBot and its inverse kinematics: 
-
-The [youbot_arm_test](https://github.com/youbot/youbot_driver_ros_interface) is a good place to get started with controlling the youBot arm.  In particular [this file](https://github.com/youbot/youbot_driver_ros_interface/blob/hydro-devel/src/examples/youbot_arm_test.cpp) provides good information for publishing joint positions comands in C++.
-
-The authors of this package also found [youbot_teleop](https://github.com/adamjardim/youbot_teleop) a helpful tool during the development and testing of the youbot_grasp_msr package. 
-
-[Unified Closed Form Inverse Kinematics for the KUKA youBot](http://ieeexplore.ieee.org/xpl/articleDetails.jsp?reload=true&arnumber=6309496) outlines a nice technique for solving the IK problem for the youBot with full 8-DOF youBot (3 from the base and 5 from the arm). The developers of youbot_grasp_msr wish to implement the method proposed in this paper in the near future. 
-
-[youbot Manipulation](https://github.com/svenschneider/youbot-manipulation): Sven Schneider has some really good examples of solving the IK problems for the youBot. These examples have been largely deprecated by the release of newer versions of ROS, and the transition from the [ROS arm-navigation](http://wiki.ros.org/arm_navigation) stack to [MoveIt!](http://moveit.ros.org/). 
+Also Thanks to Matt Mongeon so much for the help on this project.
 
 Acknowledgements
-================
-
+----------------------
 Thank you to [Jarvis Schultz](https://github.com/jarvisschultz) for contributing the ```dls_ik```, ```dls_ik_position_only```, and ```inverse_biased``` functions and their required utility functions in youbot_grasping_kdl.py.
 
