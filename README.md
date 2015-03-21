@@ -1,7 +1,11 @@
 youbot_labyrinth
 ================
 
-Package for youBot Labyrinth Solver Project.  ME499 Winter. Northwestern University.
+Package for youBot Labyrinth Solver Project.  
+
+Director:  Jarvis Schultz
+
+ME499 Winter. Northwestern University.
 
 
 
@@ -17,6 +21,28 @@ The second part of this project is to a design controller of the youBot arm to d
 The progress so far is recorded in the video in the following:   [youBot Labyrinth Solver Video Clip](https://www.youtube.com/watch?v=Qshhv_lYqqU&feature=youtu.be)
 
 <img src="https://raw.githubusercontent.com/hereissunyue/youbot_labyrinth/master/image/1.GIF">
+
+
+
+Computer Vision Part
+============
+
+In this project, computer vision technique is introduced for two main purposes. The first one is labyrinth recognition and path planning. The second part is real-time tracking. We will discuss about how we achieve the task in detail in the following.
+
+Labyrinth Recognition and Path Planning 
+---------------------------------
+
+Since the labyrinth is specially designed with black edge and white background, while the ball, start region and goal region are with R-G-B color respectively. We could easily doing color segmentation and basic image processing algorithm to extract our target and regions out.
+
+
+
+
+
+
+
+
+
+
 
 
 The package dependancies include: 
