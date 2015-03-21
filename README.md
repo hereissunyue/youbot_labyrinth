@@ -99,6 +99,25 @@ end
 From the video clip, we could tell that our Kalman Filter is working although not that perfect. However, the tracking demo in the video is tracking a hard coded motion, and the camera bandwidth is not very high. However, with better equipment our tracking task will perform better for real-time control.
 
 
+Labyrinth Design and Prototyping
+============
+
+Design and prototype the labytinth model is a very time consuming task. The labyrinth used in the demo is not a perfect version, which produces very low chance to make a successful demo video clip.
+
+The original design and the real model is showed in the following:
+
+<img src="https://raw.githubusercontent.com/hereissunyue/youbot_labyrinth/master/image/3.png">
+
+
+Controller Design
+============
+
+
+
+
+
+
+
 
 The package dependancies include: 
 ---------------------------------
@@ -106,16 +125,13 @@ The package dependancies include:
 The following dependancies are clonable via github:
 
 1) [hrl-kdl](https://github.com/gt-ros-pkg/hrl-kdl)
-
 2) [urdfdom](https://github.com/ros/urdfdom)
-
 3) [brics_actuator](http://wiki.ros.org/brics_actuator) ( The brics messages are required by the hrl-kdl) 
-
 The package also relies on the following packages, installable from apt-get in Hydro. 
 
 4) [youbot_driver](https://github.com/youbot/youbot_driver) 
-
 5) [youbot_driver_ros_interface](https://github.com/youbot/youbot_driver_ros_interface)
+
 
 
 Running the Package
