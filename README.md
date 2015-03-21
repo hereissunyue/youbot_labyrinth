@@ -1,12 +1,17 @@
-youbot_grasp_msr
+youBot_labyrinth
 ================
 
-Package for controlling grasping with the [KUKA youBot](http://www.kuka-labs.com/en/service_robotics/research_education/youbot/) arm.
+Package for youBot Labyrinth Solver Project.  ME499 Winter. Northwestern University.
 
-Introduction
+Project Introduction
 ============
 
-This is a working demo for the forward and inverse kinematics of the 5 degree of freedom KUKA youBot arm.  It makes use of a technique that adds "virtual joints" to the robot to make its inverse kinematics easier to solve by transforming its arm into a redundant manipulator. This package includes a modified urdf called "youbot_virtual.urdf", which contains two virtual prismatic joints added to the base of the youBot URDF. The prismatic joints lie on the youBot's driving plane. These two virtual joints are used to define how much the base of the youBot should move in addition to how the arm should move, thus allowing the inverse kinematics to be solved with 7 degrees of freedom instead of just 5 in the arm.
+The goal of this project is to use youBot to solve and plan the path of a labyrinth from start to goal based on computer vision technique, and then making execution of the youBot arm to make a small ball follow the trajectory we planned. In the original design of the project, during the movement of the ball, adjustment of dead reckoning error is also an important part of the project.
+
+The project has two main parts, one of them is utilizing computer vision technique to recognize the labyrinth and planning the path with A* algorithm. The computer vision technique also contains objecting tracking task with Kalman Filter Estimation which is the foundation of youBot arm motion planning. 
+
+The second part of this project is to a design controller of the youBot arm to do motion planning which makes the ball in the labyrinth following the trajectory we planned in computer vision part.
+
 
 The package dependancies include: 
 ---------------------------------
