@@ -6,7 +6,7 @@ addpath('C:\Users\sunyue\Desktop\Project\youbot_labyrinth\image')  % path of lab
 video1 = VideoReader('1.avi'); % read the video 1
 video2 = VideoReader('2.avi'); % read the video 2
 frame2 = video2.NumberOfFrames; % get the frame number of the video 2
-frame1 = frame2/2; % making the frame syncronize
+frame1 = video1.NumberOfFrames; % making the frame syncronize
 
 
 %% Extract the Map of the labyrinth
@@ -163,40 +163,162 @@ path_node_num = size(path_location,1);
 %% path planning
 start = start_node(1,:);
 goal = goal_node(2,:);
-[pathlist] = Astar(start, goal, obstacle);
+[pathlist] = Astar(start, goal, obstacle);  % implement A star to find the path
+real_path_location = 10*(pathlist - 1) + 5.5;
 
-
-% figure(1)
-% plot(obstacle(:,1),obstacle(:,2),'ro')
-% hold on
-% plot(pathlist(:,1),pathlist(:,2),'b*');
-% hold on
-% plot(start(1),start(2),'kd');
-% hold on
-% plot(goal(1),goal(2),'kd');
-% hold off
+% extract the corner of the path
+[cornerpath] = pathcorner(pathlist);
+corner_path_location = 10*(cornerpath - 1) + 5.5;
 
 
 %% Draw the Map
 
-% figure(1)
-% imshow(Map)
+figure(100)
+imshow(Map)
+hold on
+for k = 1:wall_region_num
+    rectangle('Position',wall_region(k,:),'FaceColor','w','EdgeColor','w')
+    hold on
+end
+for k = 1:start_region_num
+    rectangle('Position',start_region(k,:),'FaceColor','g','EdgeColor','g')
+    hold on
+end
+for k = 1:goal_region_num
+    rectangle('Position',goal_region(k,:),'FaceColor','b','EdgeColor','b')
+    hold on
+end
+% plot(corner_path_location(:,1),corner_path_location(:,2),'m','Linewidth',3)
+frame = getframe;
+map = frame.cdata;
+close all
+
+
+%% Tracking Preparation
+RGBimg = read(video1,180);% image of Red Channel
+RGBimg = imcrop(RGBimg,[83 5 578 568]); % Extract the map region
+RGBimg = imresize(RGBimg, [310 310]); % resize the map to be specific size
+ball = HSVfilter(RGBimg, [0.056 0.5117 0.78], [0.1 0.3 0.3]); % extract the start region of the labyrinth
+ball = bwareaopen(ball,20);  % Eliminate small region
+se90 = strel('line', 3, 90);
+se0 = strel('line', 3, 0);
+ball = imdilate(ball, [se90 se0]); % Dilation make line more noticable
+ball = bwareaopen(ball,40);  % Eliminate small region
+ball_info = regionprops(ball); % Getting connected region information
+centroid = cat(1, ball_info.Centroid); % Getting centroid
+% [centroid] = onpath(centroid);
+% 
+% imshow(map)
 % hold on
-% for k = 1:wall_region_num
-%     rectangle('Position',wall_region(k,:),'FaceColor','w','EdgeColor','w')
-%     hold on
-% end
-% for k = 1:start_region_num
-%     rectangle('Position',start_region(k,:),'FaceColor','g','EdgeColor','g')
-%     hold on
-% end
-% for k = 1:goal_region_num
-%     rectangle('Position',goal_region(k,:),'FaceColor','b','EdgeColor','b')
-%     hold on
-% end
-% plot(path_location(:,1),path_location(:,2),'r*')
+% viscircles(centroid,2,'EdgeColor','r','Linewidth',6);
 % hold off
 
 
+%% Kalman Filter Implementation on Brazil Players Tracking
+dT = 1/30; % set T to be 33 based on ground truth
+At_vel = [1,0,dT,0;0,1,0,dT;0,0,1,0;0,0,0,1]; % At in velocity constant model
+Ct_vel = [1,0,0,0;0,1,0,0]; % Ct in velocity constant model
+acceleration_noise = 100; % the variability in how fast the player is speeding up (stdv of acceleration: meters/sec^2)
+measurement_noise_x = 0.01;  %measurement noise in the horizontal direction (x axis).
+measurement_noise_y = .000001;  %measurement noise in the horizontal direction (y axis).
+Qt_vel = [measurement_noise_x 0; 0 measurement_noise_y]; % Qt in velocity constant model
+Rt_vel = [dT^4/4 0 dT^3/2 0; 0 dT^4/4 0 dT^3/2; dT^3/2 0 dT^2 0; 0 dT^3/2 0 dT^2].*acceleration_noise^2; % Ct in velocity constant model
+
+% extracting the measurement data
+state_X = centroid_B(:,1);  % X values
+state_Y = centroid_B(:,2);  % Y values
+state_space = [state_X, state_Y, zeros(size(centroid_B,1),1), zeros(size(centroid_B,1),1)]';  % Set up state vector
+state_vector = nan(4,11);  % save enough space for more detection tracking but maximum 11 players so set 11
+state_vector(:,1:size(state_space,2)) = state_space;  %estimate of initial location estimation of where the flies are(what we are updating)
+position_estimateX = nan(11); %  position estimate
+position_estimateY = nan(11); %  position estimate
+
+% initial value
+Et_1 = Rt_vel; % The starting covariance
+nF = find(isnan(state_vector(1,:))==1,1)-1 ; %initize number of track estimates
+
+strk_trks = zeros(1,11);  %counter of how many strikes a track has gotten
 
 
+%% Tracking video
+writerObj = VideoWriter('ball.avi');
+open(writerObj);
+last = corner_path_location(1,:);
+trajectory = [];
+for k = 1:frame1
+    
+        current_state = centroid_B;
+        nD = size(centroid_B,1); %set new number of detections
+        
+       %% implementation of Kalman Filter half
+        for i = 1:nF
+            state_vector(:,i) = At_vel * state_vector(:,i); % Prediction of State Vector resulting Xtba
+        end
+        Etba = At_vel * Et_1 * transpose(At_vel) + Rt_vel; % Prediction of State Covariance
+        Kt =  Etba * transpose(Ct_vel) / (Ct_vel * Etba * transpose(Ct_vel) + Qt_vel);  % Kalman Gain
+
+       %% Hungarian algorithm implementation
+        % make the distance (cost) matrice between all pairs rows are tracks, column are detections
+        distance = pdist([state_vector(1:2,1:nF)'; current_state]); % calculate the distance
+        distance = squareform(distance); %make square
+        distance = distance(1:nF,nF+1:end) ; %limit to just the tracks to detection distances
+        % Doing assignment optimal calculation based on Munkres algorithm
+        [assignment, cost] = AssignmentOptimal(distance);
+        assignment = assignment'; % correct the assignment output in appropriate form
+        
+        % check for tough situations and if it's tough, ignore the data make assignment = 0 for that tracking element 
+        % check whether the detection far from the observation
+        rejection = [];
+        for j = 1:nF
+            if assignment(j) > 0
+                rejection(j) =  distance(j,assignment(j)) < 50 ; %#ok<SAGROW>
+            else
+                rejection(j) = 0; %#ok<SAGROW>
+            end
+        end
+        assignment = assignment.*rejection;
+         
+       %% implementation of Kalman Filter Second half
+        m = 1; 
+        for j = 1:length(assignment)
+            if assignment(j) > 0
+                state_vector(:,m) = state_vector(:,m) + Kt * (current_state(assignment(j),:)' - Ct_vel * state_vector(:,m));
+            end
+            m = m + 1;
+        end
+        I = eye(size(Et_1));
+        Et = (I - Kt * Ct_vel) * Etba; % Correction of State Covariance
+        centroid_B = state_vector(1:2,:)';  % Updata the centroid_B value
+
+      %% Update new detection
+       %everything that doesn't get assigned is a new tracking
+       new_detection = current_state(~ismember(1:size(current_state,1),assignment),:)';
+       if ~isempty(new_detection)
+           state_vector(:,nF+1:nF+size(new_detection,2))=  [new_detection; zeros(2,size(new_detection,2))];
+           nF = nF + size(new_detection, 2);  % number of track estimates with new ones included
+       end 
+       
+      %% Update missing detetion
+       %give a strike to any tracking that didn't get matched up to a detection
+       miss_tracking =  find(assignment==0);
+       if ~isempty(miss_tracking)
+           strk_trks(miss_tracking) = strk_trks(miss_tracking) + 1;
+       end
+       bad_tracking = find(strk_trks > 11); %if a track has a strike greater than 6, delete the tracking
+       state_vector(:,bad_tracking) = NaN;       
+        % k = 1 do noting
+    oldcentroid = centroid_B;
+    num = size(centroid_B,1); %set new number of detections
+    
+    figure(100)
+    imshow(map)
+    hold on
+    a = centroid(2);
+    viscircles([centroid(1),a],2,'EdgeColor','r','Linewidth',6);
+    hold off
+    frame = getframe;
+    writeVideo(writerObj,frame);
+    
+    trajectory = [trajectory;centroid];  %#ok<AGROW>
+end
+close(writerObj);
