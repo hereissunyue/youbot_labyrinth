@@ -70,18 +70,33 @@ With some algorithm to transfer the region into node list (bost avaibale path no
 
 <img src="https://raw.githubusercontent.com/hereissunyue/youbot_labyrinth/master/image/3.png">
 
- 
 
-Since the labyrinth is specially designed with black edge and white background, while the ball, start region and goal region are with R-G-B color respectively. We could easily doing color segmentation and basic image processing algorithm to extract our target and regions out.
+Ball Tracking with Kalman Filter
+---------------------------------
 
+Assume our color segmentation is always perfect and we could extract correctly our target ball successfully, then we don't need any more work in Tracking task. However, the reality is always cruel.
 
+Our tracking job will encounter such problems:
+1. The color segmentation will not work perfect even sometime not good at all, which might produce fake target even bigger than our target. This problem is mostly derived from lighting.
+2. When the youBot arm is moving, the camera itself is shaking. With more frequent movement, the camera will acquire more un stable image, which would make our tacking accuracy much worse.
+3. Camera image always contain noise, we need method to decrease the effect of them.
+4. With extreme bad light situation, we might not have any measurement update at all. We need some probabilistic estimation to make our target stay in the frame. Becasue we know our target will always in the frame.
 
+Kalman Filter is a very useful and easy implemented algorithm for probabilistic estimation, the basic algorithm is like
 
+```bash
+% Take Xt_1, Et_1, Zt, Rt, Qt, At, Ct and return Xt, Et
+function [Xt, Et] = KalmanFilter(Xt_1, Et_1, Zt, Rt, Qt, At, Ct)
+Xtba = At * Xt_1; % Prediction of State Vector
+Etba = At * Et_1 * transpose(At) + Rt; % Prediction of State Covariance
+Kt =  Etba * transpose(Ct) / (Ct * Etba * transpose(Ct) + Qt);  % Kalman Gain
+Xt = Xtba + Kt * (Zt - Ct * Xtba); % Correction of State Vector:
+I = eye(size(Et_1));
+Et = (I - Kt * Ct) * Etba; % Correction of State Covariance
+end
+``` 
 
-
-
-
-
+From the video clip, we could tell that our Kalman Filter is working although not that perfect. However, the tracking demo in the video is tracking a hard coded motion, and the camera bandwidth is not very high. However, with better equipment our tracking task will perform better for real-time control.
 
 
 
