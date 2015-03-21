@@ -29,7 +29,7 @@ Computer Vision Part
 
 In this project, computer vision technique is introduced for two main purposes. The first one is labyrinth recognition and path planning. The second part is real-time tracking. We will discuss about how we achieve the task in detail in the following.
 
-Labyrinth Recognition and Path Planning 
+Labyrinth Recognition
 ---------------------------------
 
 <img src="https://raw.githubusercontent.com/hereissunyue/youbot_labyrinth/master/image/2.png">
@@ -54,12 +54,23 @@ end
 wall_region_num = size(wall_region,1);
 ```
 
+However, sometimes simply doing region-averaging might not get an accurate value, especially when we are doing the edge extraction, there is alway some regions will not work well. Hence, I dicided to used reference to build our map. We know our map is rotated with 0, 90, 180, 270 degrees. We could do simply image comparison and sort out the one with minimum difference. This method works very well.
+
 We could also save the information in other format, like just with integer number range from 1 to 31. In such method, some future work might be easier. A decent result would be like the following:
 
 <img src="https://github.com/hereissunyue/youbot_labyrinth/blob/master/image/2.GIF">
 
 
+Path Planning
 ---------------------------------
+
+A* algorithm is a very useful and easy implemented searching algorithm. With the help of Heuristic value, we could minimize the computation and time consuming to achieve real-time replanning.
+
+With some algorithm to transfer the region into node list (bost avaibale path node list and obstacle list are needed for A* algorithm), we could implement our code and get the result in the following:
+
+<img src="https://github.com/hereissunyue/youbot_labyrinth/blob/master/image/2.GIF">
+
+ 
 
 Since the labyrinth is specially designed with black edge and white background, while the ball, start region and goal region are with R-G-B color respectively. We could easily doing color segmentation and basic image processing algorithm to extract our target and regions out.
 
