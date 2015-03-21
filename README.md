@@ -16,7 +16,7 @@ The second part of this project is to a design controller of the youBot arm to d
 
 The progress so far is recorded in the video in the following:   [youBot Labyrinth Solver Video Clip](https://www.youtube.com/watch?v=Qshhv_lYqqU&feature=youtu.be)
 
-
+<img src="https://raw.githubusercontent.com/hereissunyue/youbot_labyrinth/master/image/1.GIF">
 
 
 The package dependancies include: 
