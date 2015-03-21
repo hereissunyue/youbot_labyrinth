@@ -58,7 +58,7 @@ However, sometimes simply doing region-averaging might not get an accurate value
 
 We could also save the information in other format, like just with integer number range from 1 to 31. In such method, some future work might be easier. A decent result would be like the following:
 
-<img src="https://github.com/hereissunyue/youbot_labyrinth/blob/master/image/2.GIF">
+<img src="https://raw.githubusercontent.com/hereissunyue/youbot_labyrinth/master/image/3.png">
 
 
 Path Planning
