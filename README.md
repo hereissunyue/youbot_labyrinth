@@ -14,6 +14,10 @@ The project has two main parts, one of them is utilizing computer vision techniq
 
 The second part of this project is to a design controller of the youBot arm to do motion planning which makes the ball in the labyrinth following the trajectory we planned in computer vision part.
 
+The progress so far is recorded in the video in the following:   [youBot Labyrinth Solver Video Clip](https://www.youtube.com/watch?v=Qshhv_lYqqU&feature=youtu.be)
+
+
+
 
 The package dependancies include: 
 ---------------------------------
