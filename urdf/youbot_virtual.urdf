@@ -84,7 +84,7 @@
   </link>
   <joint name="wheel_joint_fl" type="continuous">
     <axis xyz="0 1 0"/>
-    <limit effort="30" velocity="10"/>
+    <limit effort="30" lower="-0.5" upper="0.5" velocity="10"/>
     <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
     <parent link="caster_link_fl"/>
     <dynamics damping="1.0" friction="1.0"/>
@@ -124,7 +124,7 @@
   </link>
   <joint name="wheel_joint_fr" type="continuous">
     <axis xyz="0 1 0"/>
-    <limit effort="30" velocity="10"/>
+    <limit effort="30" lower="-0.5" upper="0.5" velocity="10"/>
     <dynamics damping="1.0" friction="1.0"/>
     <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
     <parent link="caster_link_fr"/>
@@ -164,8 +164,8 @@
   </link>
   <joint name="wheel_joint_bl" type="continuous">
     <axis xyz="0 1 0"/>
-    <limit effort="10" velocity="10"/>
-    <limit effort="30" velocity="10"/>
+    <limit effort="10" lower="-0.5" upper="0.5" velocity="10"/>
+    <limit effort="30" lower="-0.5" upper="0.5" velocity="10"/>
     <dynamics damping="1.0" friction="1.0"/>
     <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
     <parent link="caster_link_bl"/>
@@ -205,7 +205,7 @@
   </link>
   <joint name="wheel_joint_br" type="continuous">
     <axis xyz="0 1 0"/>
-    <limit effort="30" velocity="10"/>
+    <limit effort="30" lower="-0.5" upper="0.5" velocity="10"/>
     <dynamics damping="1.0" friction="1.0"/>
     <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
     <parent link="caster_link_br"/>

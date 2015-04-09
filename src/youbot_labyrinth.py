@@ -311,7 +311,7 @@ class YoubotArm:
 
         
         # read the move command
-        self.move_sub = rospy.Subscriber("/move_command",Int32,self.movecallback)
+        self.move_sub = rospy.Subscriber("/move_command",Int32,self.movecallback, queue_size=1)
                  
 
     def movecallback(self, move_command):
@@ -324,10 +324,10 @@ class YoubotArm:
         if (status != 1 and move != 5):
             # solve the labyrinth                                                                                                             #
             if move == 1:
-                self.left_routine()
+                self.right_routine()
 #                rospy.sleep(1.0)
             elif move == 2:
-                self.right_routine()
+                self.left_routine()
 #                rospy.sleep(1.0)
             elif move == 3:
                 self.forward_routine()
